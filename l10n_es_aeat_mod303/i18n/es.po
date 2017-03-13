@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l10n-spain (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-13 10:45+0000\n"
-"PO-Revision-Date: 2016-11-25 14:56+0000\n"
+"POT-Creation-Date: 2017-02-23 16:40+0000\n"
+"PO-Revision-Date: 2017-02-23 12:15+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-l10n-spain-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "Entrada cuenta"
 #. module: l10n_es_aeat_mod303
 #: field:l10n.es.aeat.mod303.report,allow_posting:0
 msgid "Allow posting"
-msgstr ""
+msgstr "Permitir publicación"
 
 #. module: l10n_es_aeat_mod303
 #: help:l10n.es.aeat.mod303.report,casilla_69:0
@@ -94,7 +94,7 @@ msgstr "Compañía"
 #. module: l10n_es_aeat_mod303
 #: help:l10n.es.aeat.mod303.report,partner_bank_id:0
 msgid "Company bank account used for the presentation"
-msgstr ""
+msgstr "Cuenta bancaria de la empresa utilizada para la presentación"
 
 #. module: l10n_es_aeat_mod303
 #: field:l10n.es.aeat.mod303.report,compensate:0
@@ -301,7 +301,7 @@ msgstr "Procesada"
 #. module: l10n_es_aeat_mod303
 #: field:l10n.es.aeat.mod303.report,name:0
 msgid "Report identifier"
-msgstr ""
+msgstr "Identificador del Informe"
 
 #. module: l10n_es_aeat_mod303
 #: field:l10n.es.aeat.mod303.report,result_type:0
@@ -331,13 +331,13 @@ msgid ""
 msgstr ""
 
 #. module: l10n_es_aeat_mod303
-#: code:addons/l10n_es_aeat_mod303/models/mod303.py:196
+#: code:addons/l10n_es_aeat_mod303/models/mod303.py:205
 #, python-format
 msgid "Select an account for making the charge"
 msgstr "Seleccione una cuenta bancaria para realizar el cargo"
 
 #. module: l10n_es_aeat_mod303
-#: code:addons/l10n_es_aeat_mod303/models/mod303.py:198
+#: code:addons/l10n_es_aeat_mod303/models/mod303.py:207
 #, python-format
 msgid "Select an account for receiving the money"
 msgstr "Seleccione una cuenta bancaria para recibir el dinero"
