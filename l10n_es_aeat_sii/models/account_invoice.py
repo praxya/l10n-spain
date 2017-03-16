@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def _get_header(self, company, TipoComunicacion):
         header = {
-            "IDVersionSii": 0.5,
+            "IDVersionSii": 0.6,
             "Titular": {
                 "NombreRazon": company.name,
                 "NIF": company.vat[2:]},
