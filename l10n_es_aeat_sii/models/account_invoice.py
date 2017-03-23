@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def _get_header(self, company, TipoComunicacion):
         header = {
-            "IDVersionSii": 0.6,
+            "IDVersionSii": company.sii_version,
             "Titular": {
                 "NombreRazon": company.name,
                 "NIF": company.vat[2:]},
@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
                     taxes = tax.compute_all(
                         price, line.quantity, line.product_id,
                         line.invoice_id.partner_id)
-                    taxes['percetage'] = tax.amount
+                    taxes['percentage'] = tax.amount
                     return taxes
         return taxes
     
@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
             (line.price_unit * (1 - (line.discount or 0.0) / 100.0)),
             line.quantity, line.product_id, line.invoice_id.partner_id)
         if tax_line_req:
-            TipoRecargo = tax_line_req['percetage'] * 100
+            TipoRecargo = tax_line_req['percentage'] * 100
             CuotaRecargo = tax_line_req['taxes'][0]['amount']
         else:
             TipoRecargo = 0
@@ -81,7 +81,7 @@ class AccountInvoice(models.Model):
             (line.price_unit * (1 - (line.discount or 0.0) / 100.0)),
             line.quantity, line.product_id, line.invoice_id.partner_id)
         if tax_line_req:
-            TipoRecargo = tax_line_req['percetage'] * 100
+            TipoRecargo = tax_line_req['percentage'] * 100
             CuotaRecargo = tax_line_req['taxes'][0]['amount']
         else:
             TipoRecargoEquivalencia = 0

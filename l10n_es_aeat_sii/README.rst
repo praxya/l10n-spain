@@ -15,6 +15,7 @@ Installation
 Para instalar esté módulo necesita:
 
 #. Libreria Python Zeep, se puede instalar con el comando 'pip install zeep'
+#. Libreria Python Requests, se puede instalar con el comando 'pip install requests'
 
 Configuration
 =============
@@ -59,7 +60,8 @@ Known issues / Roadmap
 * Factura simplificada
 * Facturas No sujetas según el art 7.14 y no sujetas en el TAI
 * Asistente para consultar los documentos comunicados 
-* Carga directa del certificado desde Odoo
+* Carga directa del certificado desde Odoo (PR Enviado)
+* Control de longitud y tipo de datos
 * Usar modulo connector
 
 Bug Tracker
