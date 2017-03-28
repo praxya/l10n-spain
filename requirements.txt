@@ -1,4 +1,6 @@
 pycrypto
 unidecode
 unicodecsv
-requests
+requests==2.5.3
+zeep==1.1
+
