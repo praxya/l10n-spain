@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api
-import string
 
 
 class ResCompany(models.Model):
@@ -19,6 +18,7 @@ class ResCompany(models.Model):
                   'to install it to activate this option'))
 
     sii_test = fields.Boolean(string='Test Enviroment')
+    sii_version = fields.Char(string='SII Version', default='0.6')
     use_connector = fields.Boolean(
         string='Use connector',
         help='Check it to use connector instead to send the invoice '
