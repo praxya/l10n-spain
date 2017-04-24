@@ -53,7 +53,6 @@ de AEAT.
 Known issues / Roadmap
 ======================
 
-* Facturas rectificativas
 * Facturas de bienes de inversión
 * Comunicación de cobros y pagos
 * Determinadas facturas intracomunitarias
