@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Ignacio Ibeas <ignacio@acysos.com>
 # (c) 2017 Diagram Software S.L.
-# Copyright (c) 2015-TODAY MINORISA <ramon.guiu@minorisa.net> 
+# Copyright (c) 2017-TODAY MINORISA <ramon.guiu@minorisa.net> 
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Suministro Inmediato de Información en el IVA",
@@ -17,9 +17,6 @@
                    "requests"],
     },
     "depends": [
-        "base",
-        "account",
-        "l10n_es",
         "l10n_es_aeat"
     ],
     "data": [
