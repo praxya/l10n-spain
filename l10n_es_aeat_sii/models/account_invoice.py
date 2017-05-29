@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Ignacio Ibeas <ignacio@acysos.com>
+# (c) 2017 Consultoría Informática Studio 73 S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api, _
@@ -431,17 +432,21 @@ class AccountInvoice(models.Model):
     
     @api.multi
     def _connect_sii(self, wsdl):
-        publicCrt = self.env['ir.config_parameter'].get_param(
-            'l10n_es_aeat_sii.publicCrt', False)
-        privateKey = self.env['ir.config_parameter'].get_param(
-            'l10n_es_aeat_sii.privateKey', False)
+        sii_config = self.env['l10n.es.aeat.sii'].search(
+            [('company_id', '=', self.company_id.id),
+             ('public_key', '!=', False),
+             ('private_key', '!=', False)]
+        )
+        if not sii_config:
+            raise Warning('No hay un SII correctamente configurado para la '
+                          'compañia %s' % self.company_id.name_get())
 
         session = Session()
-        session.cert = (publicCrt, privateKey)
+        session.cert = (sii_config.public_key, sii_config.private_key)
         transport = Transport(session=session)
 
         history = HistoryPlugin()
-        client = Client(wsdl=wsdl,transport=transport,plugins=[history])
+        client = Client(wsdl=wsdl, transport=transport, plugins=[history])
         return client
 
     @api.multi
