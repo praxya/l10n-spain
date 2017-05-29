@@ -2,7 +2,8 @@
 # Copyright 2017 Ignacio Ibeas <ignacio@acysos.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+from openerp.exceptions import Warning
 
 
 class ResCompany(models.Model):
@@ -10,10 +11,10 @@ class ResCompany(models.Model):
     
     @api.onchange('use_connector')
     def _check_connector_installed(self):
-        module = self.env['ir.module'].search(
+        module = self.env['ir.module.module'].search(
             [('name', '=', 'connector'), ('state', '=', 'installed')])
         if not module:
-            raise exceptions.Warning(
+            raise Warning(
                 _('The module "Connector" is not installed. You have '
                   'to install it to activate this option'))
 
