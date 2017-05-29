@@ -20,8 +20,7 @@ class ResCompany(models.Model):
     sii_enabled = fields.Boolean(string='Enable SII')
     sii_test = fields.Boolean(string='Test Enviroment')
     chart_template_id = fields.Many2one(
-        comodel_name='account.chart.template', string='Chart Template',
-        required=True)
+        comodel_name='account.chart.template', string='Chart Template')
     use_connector = fields.Boolean(
         string='Use connector',
         help='Check it to use connector instead to send the invoice '
