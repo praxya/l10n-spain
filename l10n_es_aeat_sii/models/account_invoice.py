@@ -40,7 +40,7 @@ class AccountInvoice(models.Model):
                 [('code', '=', '01'), ('type', '=', 'sale')], limit=1)
         return key
 
-    sii_description = fields.Text(string='SII Description')
+    sii_description = fields.Text(string='SII Description', default="/")
     sii_sent = fields.Boolean(string='SII Sent')
     sii_csv = fields.Char(string='SII CSV')
     sii_return = fields.Text(string='SII Return')
@@ -397,7 +397,7 @@ class AccountInvoice(models.Model):
                 "FacturaExpedida": {
                     "TipoFactura": TipoFactura,
                     "ClaveRegimenEspecialOTrascendencia": key,
-                    "DescripcionOperacion": invoice.name,
+                    "DescripcionOperacion": invoice.sii_description[0:500],
                     "Contraparte": {
                         "NombreRazon": invoice.partner_id.name[0:120],
                         "NIF": invoice.partner_id.vat[2:]
