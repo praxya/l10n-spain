@@ -432,15 +432,21 @@ class AccountInvoice(models.Model):
     
     @api.multi
     def _connect_sii(self, wsdl):
+        today = fields.Date.today()
         sii_config = self.env['l10n.es.aeat.sii'].search(
             [('company_id', '=', self.company_id.id),
              ('public_key', '!=', False),
-             ('private_key', '!=', False)]
+             ('private_key', '!=', False),
+             '|', ('date_start', '=', False),
+             ('date_start', '<=', today),
+             '|', ('date_end', '=', False),
+             ('date_end', '>=', today)],
+            limit=1
         )
         if not sii_config:
-            raise Warning('No hay un SII correctamente configurado para la '
-                          'compañia %s' % self.company_id.name_get())
-
+            raise Warning(u'No hay un SII correctamente configurado para la '
+                          u'compañia %s' % self.company_id.name_get()[0][1])
+        
         session = Session()
         session.cert = (sii_config.public_key, sii_config.private_key)
         transport = Transport(session=session)
