@@ -30,6 +30,7 @@
         "data/aeat_sii_mapping_registration_keys_data.xml",
         "views/aeat_sii_map_view.xml",
         "data/aeat_sii_map_data.xml",
-        "security/ir.model.access.csv"
+        "security/ir.model.access.csv",
+        "security/aeat_sii.xml"
     ],
 }
