@@ -457,15 +457,20 @@ class AccountInvoice(models.Model):
              ('date_start', '<=', today),
              '|', ('date_end', '=', False),
              ('date_end', '>=', today),
-             ('active', '=', True)],
+             ('state', '=', 'active')],
             limit=1
         )
-        if not sii_config:
-            raise Warning(u'No hay un SII correctamente configurado para la '
-                          u'compañia %s' % self.company_id.name_get()[0][1])
+        if sii_config:
+            publicCrt = sii_config.public_key
+            privateKey = sii_config.private_key
+        else:
+            publicCrt = self.env['ir.config_parameter'].get_param(
+                'l10n_es_aeat_sii.publicCrt', False)
+            privateKey = self.env['ir.config_parameter'].get_param(
+                'l10n_es_aeat_sii.privateKey', False)
         
         session = Session()
-        session.cert = (sii_config.public_key, sii_config.private_key)
+        session.cert = (publicCrt, privateKey)
         transport = Transport(session=session)
 
         history = HistoryPlugin()
