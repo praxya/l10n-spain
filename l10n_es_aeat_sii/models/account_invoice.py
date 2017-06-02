@@ -285,8 +285,8 @@ class AccountInvoice(models.Model):
                              'PrestacionServicios']['Sujeta']['Exenta'] = {
                                      'BaseImponible': line.price_subtotal}
                          else:
-                             taxes_sii['DesgloseTipoOperacion']
-                             ['PrestacionServicios']['Sujeta']['Exenta'][
+                             taxes_sii['DesgloseTipoOperacion'][
+                             'PrestacionServicios']['Sujeta']['Exenta'][
                                  'BaseImponible'] += line.price_subtotal   
                     # TODO Facturas no sujetas
                     if tax_line in taxes_sfess:
