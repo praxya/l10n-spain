@@ -198,8 +198,8 @@ class AccountInvoice(models.Model):
         if tax_line_req:
             tipo_recargo = tax_line_req['percentage'] * 100
             cuota_recargo = tax_line_req['taxes'][0]['amount']
-            taxes[str(tax_type)]['TipoRecargoEquivalencia'] += tipo_recargo
-            taxes[str(tax_type)]['CuotaRecargoEquivalencia'] += cuota_recargo
+            tax_sii[str(tax_type)]['TipoRecargoEquivalencia'] += tipo_recargo
+            tax_sii[str(tax_type)]['CuotaRecargoEquivalencia'] += cuota_recargo
 
         tax_sii[str(tax_type)]['BaseImponible'] += taxes['total']
         if self.type in ['out_invoice', 'out_refund']:
