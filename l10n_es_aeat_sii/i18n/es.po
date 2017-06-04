@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-04 16:49+0000\n"
-"PO-Revision-Date: 2017-06-04 18:52+0200\n"
+"POT-Creation-Date: 2017-06-04 17:02+0000\n"
+"PO-Revision-Date: 2017-06-04 19:03+0200\n"
 "Last-Translator: Ignacio Ibeas - Acysos S.L. <ignacio@acysos.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -216,7 +216,7 @@ msgstr "Factura"
 #: view:account.invoice:l10n_es_aeat_sii.invoice_supplier_sii_form
 #: field:account.invoice,invoice_jobs_ids:0
 msgid "Invoice Jobs"
-msgstr "Trabajos factura"
+msgstr "Invoice Jobs"
 
 #. module: l10n_es_aeat_sii
 #: field:aeat.sii.map,__last_update:0 field:aeat.sii.map.lines,__last_update:0
@@ -390,6 +390,16 @@ msgid "SII Sent"
 msgstr "Enviado SII"
 
 #. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.view_account_invoice_sii_filter
+msgid "SII not send"
+msgstr "SII No enviadas"
+
+#. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.view_account_invoice_sii_filter
+msgid "SII send"
+msgstr "SII Enviadas"
+
+#. module: l10n_es_aeat_sii
 #: selection:aeat.sii.mapping.registration.keys,type:0
 msgid "Sale"
 msgstr "Ventas"
@@ -434,7 +444,7 @@ msgstr "Entorno de pruebas"
 #: code:addons/l10n_es_aeat_sii/models/account_invoice.py:383
 #, python-format
 msgid "The partner '{}' has not a VAT configured."
-msgstr "Esta empresa '{}' no tiene un CIF/NIF configurado."
+msgstr "The partner '{}' has not a VAT configured."
 
 #. module: l10n_es_aeat_sii
 #: view:l10n.es.aeat.sii:l10n_es_aeat_sii.l10n_es_sii_form_view
@@ -455,7 +465,7 @@ msgstr "Tipo"
 #. module: l10n_es_aeat_sii
 #: field:res.company,use_connector:0
 msgid "Use connector"
-msgstr "Usar conector"
+msgstr "Usar connector"
 
 #. module: l10n_es_aeat_sii
 #: selection:res.company,send_mode:0
