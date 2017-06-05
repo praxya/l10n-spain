@@ -9,10 +9,27 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def _get_invoices(self):
+        """
+        Según la documentación de la AEAT, la operación de importación se
+        registra con TipoFactura = F5, sin FechaOperacion y con el NIF de la
+        propia compañia en IDEmisorFactura y Contraparte
+        Más información en: 8.1.2.2.Ejemplo mensaje XML de alta de importación
+        en el documento de descripción de los servicios web:
+        http://bit.ly/2rGWiAI
+
+        """
         res = super(AccountInvoice, self)._get_invoices()
         if res.get('FacturaRecibida', False) and self.is_dua_sii_invoice():
                 res['FacturaRecibida']['TipoFactura'] = 'F5'
                 res['FacturaRecibida'].pop('FechaOperacion', None)
+                res['FacturaRecibida']['IDEmisorFactura'] = \
+                    {'NIF': self.company_id.vat[2:]}
+                res['IDFactura']['IDEmisorFactura'] = \
+                    {'NIF': self.company_id.vat[2:]}
+                res['FacturaRecibida']['Contraparte']['NIF'] = \
+                    self.company_id.vat[2:]
+                res['FacturaRecibida']['Contraparte']['NombreRazon'] = \
+                    self.company_id.name
         return res
 
     @api.multi

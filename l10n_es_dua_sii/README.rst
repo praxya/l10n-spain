@@ -49,8 +49,8 @@ Images
 Contributors
 ------------
 
-# Studio73 - Pablo Fuentes <pablo@studio73.es>
-# Studio73 - Jordi Tolsà <jordi@studio73.es>
+* Studio73 - Pablo Fuentes <pablo@studio73.es>
+* Studio73 - Jordi Tolsà <jordi@studio73.es>
 
 
 Maintainer
