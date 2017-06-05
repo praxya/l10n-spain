@@ -190,7 +190,7 @@ class AccountInvoice(models.Model):
         return tax_sii
 
     @api.multi
-    def _update_sii_tax_line(self, taxes, tax_line, line, line_taxes):
+    def _update_sii_tax_line(self, tax_sii, tax_line, line, line_taxes):
         self.ensure_one()
         tax_type = tax_type = tax_line.amount * 100
         tax_line_req = self._get_tax_line_req(tax_type, line, line_taxes)
@@ -200,15 +200,15 @@ class AccountInvoice(models.Model):
         if tax_line_req:
             tipo_recargo = tax_line_req['percentage'] * 100
             cuota_recargo = tax_line_req['taxes'][0]['amount']
-            taxes[str(tax_type)]['TipoRecargoEquivalencia'] += tipo_recargo
-            taxes[str(tax_type)]['CuotaRecargoEquivalencia'] += cuota_recargo
+            tax_sii[str(tax_type)]['TipoRecargoEquivalencia'] += tipo_recargo
+            tax_sii[str(tax_type)]['CuotaRecargoEquivalencia'] += cuota_recargo
 
-        taxes[str(tax_type)]['BaseImponible'] += taxes['total']
+        tax_sii[str(tax_type)]['BaseImponible'] += taxes['total']
         if self.type in ['out_invoice', 'out_refund']:
-            taxes['CuotaRepercutida'] += taxes['taxes'][0]['amount']
+            tax_sii[str(tax_type)]['CuotaRepercutida'] += taxes['taxes'][0]['amount']
         if self.type in ['in_invoice', 'in_refund']:
-            taxes['CuotaSoportada'] += taxes['taxes'][0]['amount']
-        return taxes
+            tax_sii[str(tax_type)]['CuotaSoportada'] += taxes['taxes'][0]['amount']
+        return tax_sii
 
     @api.multi
     def _get_sii_out_taxes(self):
@@ -263,7 +263,7 @@ class AccountInvoice(models.Model):
                                     'NoExenta']['DesgloseIVA'][
                                         'DetalleIVA'] = []
                             tax_type = tax_line.amount * 100
-                            if tax_type not in taxes_f:
+                            if str(tax_type) not in taxes_f:
                                 taxes_f[str(tax_type)] = \
                                     self._get_sii_tax_line(
                                         tax_line, line,
@@ -281,14 +281,15 @@ class AccountInvoice(models.Model):
                     if 'Sujeta' not in type_breakdown['PrestacionServicios']:
                         type_breakdown['PrestacionServicios']['Sujeta'] = {}
                     if tax_line in taxes_sfesse:
-                        if 'Exenta' not in taxes_sii['DesgloseFactura'][
-                                'Sujeta']:
-                            taxes_sii['DesgloseFactura']['Sujeta'][
-                                'Exenta'] = {
-                                    'BaseImponible': line.price_subtotal}
-                        else:
-                            taxes_sii['DesgloseFactura']['Sujeta']['Exenta'][
-                                'BaeImponible'] += line.price_subtotal
+                         if 'Exenta' not in taxes_sii['DesgloseTipoOperacion'][
+                                 'PrestacionServicios']['Sujeta']:
+                             taxes_sii['DesgloseTipoOperacion'][
+                             'PrestacionServicios']['Sujeta']['Exenta'] = {
+                                     'BaseImponible': line.price_subtotal}
+                         else:
+                             taxes_sii['DesgloseTipoOperacion'][
+                             'PrestacionServicios']['Sujeta']['Exenta'][
+                                 'BaseImponible'] += line.price_subtotal   
                     # TODO Facturas no sujetas
                     if tax_line in taxes_sfess:
                         if 'NoExenta' not in type_breakdown[
@@ -313,7 +314,7 @@ class AccountInvoice(models.Model):
                                 'PrestacionServicios']['Sujeta']['NoExenta'][
                                     'DesgloseIVA']['DetalleIVA'] = []
                             tax_type = tax_line.amount * 100
-                            if tax_type not in taxes_to:
+                            if str(tax_type) not in taxes_to:
                                 taxes_to[str(tax_type)] = \
                                     self._get_sii_tax_line(
                                         tax_line, line,
@@ -350,7 +351,7 @@ class AccountInvoice(models.Model):
                             taxes_sii['InversionSujetoPasivo'][
                                 'DetalleIVA'] = []
                         tax_type = tax_line.amount * 100
-                        if tax_type not in taxes_isp:
+                        if str(tax_type) not in taxes_isp:
                             taxes_isp[str(tax_type)] = self._get_sii_tax_line(
                                 tax_line, line, line.invoice_line_tax_id)
                         else:
@@ -363,7 +364,7 @@ class AccountInvoice(models.Model):
                             taxes_sii['DesgloseIVA'][
                                 'DetalleIVA'] = []
                         tax_type = tax_line.amount * 100
-                        if tax_type not in taxes_f:
+                        if str(tax_type) not in taxes_f:
                             taxes_f[str(tax_type)] = self._get_sii_tax_line(
                                 tax_line, line, line.invoice_line_tax_id)
                         else:
@@ -417,11 +418,14 @@ class AccountInvoice(models.Model):
                     "DescripcionOperacion": self.sii_description[0:500],
                     "Contraparte": {
                         "NombreRazon": self.partner_id.name[0:120],
-                        "NIF": self.partner_id.vat[2:]
                     },
-                    "TipoDesglose": tipo_desglose
+                    "TipoDesglose": tipo_desglose,
+                    "ImporteTotal": self.amount_total
                 }
             }
+            # Uso condicional de IDOtro/NIF
+            invoices['FacturaExpedida']['Contraparte'].update(
+                self._get_sii_identifier())
             if self.type == 'out_refund':
                 invoices['FacturaExpedida'][
                     'TipoRectificativa'] = self.refund_type
@@ -635,6 +639,27 @@ class AccountInvoice(models.Model):
             :return: bool
         """
         return True
+      
+    @api.multi
+    def _get_sii_identifier(self):
+        self.ensure_one()
+        codPais = self.partner_id.vat[:2]
+        dic_ret = {}
+        if codPais != 'ES':
+            if self.fiscal_position.name == u'Régimen Intracomunitario':
+                idType = '02'
+            else:
+                idType = '04'
+            dic_ret = {
+                "IDOtro": {
+                    "CodigoPais": codPais,
+                    "IDType": idType,
+                    "ID": self.partner_id.vat
+                }
+            }
+        else:
+            dic_ret = {"NIF": self.partner_id.vat[2:]}
+        return dic_ret
 
 @job(default_channel='root.invoice_validate_sii')
 def confirm_one_invoice(session, model_name, invoice_id):
