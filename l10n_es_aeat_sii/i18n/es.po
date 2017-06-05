@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-30 17:10+0000\n"
-"PO-Revision-Date: 2017-05-30 19:18+0200\n"
+"POT-Creation-Date: 2017-06-04 17:02+0000\n"
+"PO-Revision-Date: 2017-06-04 19:03+0200\n"
 "Last-Translator: Ignacio Ibeas - Acysos S.L. <ignacio@acysos.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,6 @@ msgstr "Activo"
 
 #. module: l10n_es_aeat_sii
 #: model:ir.model,name:l10n_es_aeat_sii.model_aeat_sii_mapping_registration_keys
-#: model:ir.model,name:l10n_es_aeat_sii.model_l10n_es_aeat_sii_mapping_registration_keys
 msgid "Aeat SII Invoice Registration Keys"
 msgstr "AEAT SII Claves de Identificación Operaciones"
 
@@ -56,6 +55,21 @@ msgstr "SII - Lineas de mapeo"
 #: model:ir.ui.menu,name:l10n_es_aeat_sii.menu_aeat_sii_mapping_registration_keys
 msgid "Aeat SII Registration Keys"
 msgstr "Aeat SII Tabla de claves: régimen especial/identificación operaciones con transedencia tributaria"
+
+#. module: l10n_es_aeat_sii
+#: selection:res.company,send_mode:0
+msgid "At fixed time"
+msgstr "A hora fija"
+
+#. module: l10n_es_aeat_sii
+#: selection:res.company,sii_method:0
+msgid "Automatic"
+msgstr "Automático"
+
+#. module: l10n_es_aeat_sii
+#: help:res.company,sii_method:0
+msgid "By default the invoice send in validate process, with manual method, there a button to send the invoice."
+msgstr "By default the invoice send in validate process, with manual method, there a button to send the invoice."
 
 #. module: l10n_es_aeat_sii
 #: selection:account.invoice,refund_type:0
@@ -130,6 +144,11 @@ msgid "Date to"
 msgstr "Fecha hasta"
 
 #. module: l10n_es_aeat_sii
+#: field:res.company,delay_time:0
+msgid "Delay time"
+msgstr "Tiempo de retardo"
+
+#. module: l10n_es_aeat_sii
 #: field:aeat.sii.map,display_name:0 field:aeat.sii.map.lines,display_name:0
 #: field:aeat.sii.mapping.registration.keys,display_name:0
 #: field:l10n.es.aeat.sii,display_name:0
@@ -153,7 +172,7 @@ msgid "End Date"
 msgstr "Fecha hasta"
 
 #. module: l10n_es_aeat_sii
-#: code:addons/l10n_es_aeat_sii/models/aeat_sii_map.py:38
+#: code:addons/l10n_es_aeat_sii/models/aeat_sii_map.py:39
 #, python-format
 msgid "Error! The dates of the record overlap with an existing record."
 msgstr "Error! Las fecha del registro se superponen con otro registro"
@@ -234,9 +253,19 @@ msgid "Load Certificate"
 msgstr "Cargar Certificado"
 
 #. module: l10n_es_aeat_sii
+#: selection:res.company,sii_method:0
+msgid "Manual"
+msgstr "Manual"
+
+#. module: l10n_es_aeat_sii
 #: view:aeat.sii.map:l10n_es_aeat_sii.aeat_sii_map_view_form
 msgid "Mapping Lines"
 msgstr "Líneas del mapeo"
+
+#. module: l10n_es_aeat_sii
+#: field:res.company,sii_method:0
+msgid "Method"
+msgstr "Método"
 
 #. module: l10n_es_aeat_sii
 #: field:aeat.sii.map,name:0
@@ -251,10 +280,21 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: l10n_es_aeat_sii
+#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:137
+#, python-format
+msgid "No VAT configured for the company '{}'"
+msgstr "No VAT configured for the company '{}'"
+
+#. module: l10n_es_aeat_sii
 #: view:l10n.es.aeat.sii:l10n_es_aeat_sii.l10n_es_sii_form_view
 #: view:l10n.es.aeat.sii.password:l10n_es_aeat_sii.l10n_es_sii_password_wizard_view
 msgid "Obtain Keys"
 msgstr "Obtener Claves"
+
+#. module: l10n_es_aeat_sii
+#: selection:res.company,send_mode:0
+msgid "On validate"
+msgstr "Al validar"
 
 #. module: l10n_es_aeat_sii
 #: code:addons/l10n_es_aeat_sii/wizard/aeat_sii_password.py:65
@@ -281,6 +321,12 @@ msgstr "Clave pública"
 #: selection:aeat.sii.mapping.registration.keys,type:0
 msgid "Purchase"
 msgstr "Compras"
+
+#. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.invoice_sii_form
+#: view:account.invoice:l10n_es_aeat_sii.invoice_supplier_sii_form
+msgid "Re-Open"
+msgstr "Reabrir"
 
 #. module: l10n_es_aeat_sii
 #: field:account.invoice,refund_type:0
@@ -344,9 +390,35 @@ msgid "SII Sent"
 msgstr "Enviado SII"
 
 #. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.view_account_invoice_sii_filter
+msgid "SII not send"
+msgstr "SII No enviadas"
+
+#. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.view_account_invoice_sii_filter
+msgid "SII send"
+msgstr "SII Enviadas"
+
+#. module: l10n_es_aeat_sii
 #: selection:aeat.sii.mapping.registration.keys,type:0
 msgid "Sale"
 msgstr "Ventas"
+
+#. module: l10n_es_aeat_sii
+#: view:account.invoice:l10n_es_aeat_sii.invoice_sii_form
+#: view:account.invoice:l10n_es_aeat_sii.invoice_supplier_sii_form
+msgid "Send SII"
+msgstr "Enviar SII"
+
+#. module: l10n_es_aeat_sii
+#: field:res.company,send_mode:0
+msgid "Send mode"
+msgstr "Modo de envío"
+
+#. module: l10n_es_aeat_sii
+#: field:res.company,sent_time:0
+msgid "Sent time"
+msgstr "Hora de envío"
 
 #. module: l10n_es_aeat_sii
 #: field:l10n.es.aeat.sii,date_start:0
@@ -369,10 +441,10 @@ msgid "Test Enviroment"
 msgstr "Entorno de pruebas"
 
 #. module: l10n_es_aeat_sii
-#: code:addons/l10n_es_aeat_sii/models/res_company.py:18
+#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:383
 #, python-format
-msgid "The module \"Connector\" is not installed. You have to install it to activate this option"
-msgstr "El módulo \"Connector\" no esta instalado. Tiene que instalarlo para activar esta opción."
+msgid "The partner '{}' has not a VAT configured."
+msgstr "The partner '{}' has not a VAT configured."
 
 #. module: l10n_es_aeat_sii
 #: view:l10n.es.aeat.sii:l10n_es_aeat_sii.l10n_es_sii_form_view
@@ -396,13 +468,18 @@ msgid "Use connector"
 msgstr "Usar connector"
 
 #. module: l10n_es_aeat_sii
-#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:553
+#: selection:res.company,send_mode:0
+msgid "With delay"
+msgstr "Con retardo"
+
+#. module: l10n_es_aeat_sii
+#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:607
 #, python-format
 msgid "You can not cancel this invoice because there is a job running!"
 msgstr "No puede cancelar una factura porque hay un trabajo ejecutándose!"
 
 #. module: l10n_es_aeat_sii
-#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:376
+#: code:addons/l10n_es_aeat_sii/models/account_invoice.py:393
 #, python-format
 msgid "You have to select what account chart template use this company."
 msgstr "Debe seleccionar que plan contable utiliza esta compañía"
