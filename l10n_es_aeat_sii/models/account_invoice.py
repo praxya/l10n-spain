@@ -14,8 +14,6 @@ from zeep.plugins import HistoryPlugin
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
-import decimal
-
 
 _logger = logging.getLogger(__name__)
 
@@ -411,10 +409,8 @@ class AccountInvoice(models.Model):
                 "The partner '{}' has not a VAT configured.").format(
                     self.partner_id.name))
         invoice_date = self._change_date_format(self.date_invoice)
-        company = self.company_id
-        
-        currency = self.currency_id.with_context(date=invoice_date or fields.Date.context_today(self))
-        
+        company = self.company_id      
+        currency = self.currency_id.with_context(date=invoice_date or fields.Date.context_today(self))        
         ejercicio = fields.Date.from_string(
             self.period_id.fiscalyear_id.date_start).year
         periodo = '%02d' % fields.Date.from_string(
@@ -423,8 +419,6 @@ class AccountInvoice(models.Model):
             raise Warning(_(
                 'You have to select what account chart template use this'
                 ' company.'))
-
-
         if self.type in ['out_invoice', 'out_refund']:
             tipo_factura = 'F1'
             # TODO Los 5 tipos de facturas rectificativas
