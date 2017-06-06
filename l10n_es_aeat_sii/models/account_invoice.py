@@ -253,11 +253,8 @@ class AccountInvoice(models.Model):
                                         self.company_id.currency_id)}
                                
                                 if line.product_id.sii_exempt_cause != 'none':                                                                
-                                    inv_breakdown['Sujeta']['Exenta'] = {
-                                        'CausaExencion': 
-                                            line.product_id.sii_exempt_cause,
-                                                'BaseImponible': currency.compute(line.price_subtotal,
-                                                                                  self.company_id.currency_id)}                                 
+                                    inv_breakdown['Sujeta']['Exenta'].update({
+                                        'CausaExencion':line.product_id.sii_exempt_cause})                                 
                             else:                                                              
                                 inv_breakdown['Sujeta']['Exenta'][
                                     'BaseImponible'] += currency.compute(line.price_subtotal,
@@ -311,12 +308,8 @@ class AccountInvoice(models.Model):
                                     }
                             if line.product_id.sii_exempt_cause != 'none':
                                 taxes_sii['DesgloseTipoOperacion'][
-                                    'PrestacionServicios']['Sujeta']['Exenta'] = {
-                                        'CausaExencion': 
-                                        line.product_id.sii_exempt_cause,
-                                        'BaseImponible': currency.compute(line.price_subtotal,
-                                                                          self.company_id.currency_id)
-                                        }
+                                    'PrestacionServicios']['Sujeta']['Exenta'].update({
+                                        'CausaExencion': line.product_id.sii_exempt_cause})
                          else:
                              taxes_sii['DesgloseTipoOperacion'][
                                  'PrestacionServicios']['Sujeta']['Exenta'][
