@@ -149,7 +149,13 @@ class AccountInvoice(models.Model):
             "TipoComunicacion": tipo_comunicacion
         }
         return header
-
+    
+    @api.multi
+    def _get_line_price_subtotal(self, line):
+        self.ensure_one()
+        price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+        return price
+    
     @api.multi
     def _get_tax_line_req(self, tax_type, line, line_taxes):
         self.ensure_one()
@@ -159,8 +165,7 @@ class AccountInvoice(models.Model):
         if len(line_taxes) > 1:
             for tax in line_taxes:
                 if tax in taxes_re:
-                    price = line.price_unit * (1 - (
-                        line.discount or 0.0) / 100.0)
+                    price = self._get_line_price_subtotal(line)
                     taxes = tax.compute_all(
                         price, line.quantity, line.product_id,
                         line.invoice_id.partner_id)
@@ -174,7 +179,7 @@ class AccountInvoice(models.Model):
         tax_type = tax_line.amount * 100
         tax_line_req = self._get_tax_line_req(tax_type, line, line_taxes)
         taxes = tax_line.compute_all(
-            (line.price_unit * (1 - (line.discount or 0.0) / 100.0)),
+            self._get_line_price_subtotal(line),
             line.quantity, line.product_id, line.invoice_id.partner_id)
         tax_sii = {
             "TipoImpositivo": tax_type,
@@ -198,7 +203,7 @@ class AccountInvoice(models.Model):
         tax_type = tax_type = tax_line.amount * 100
         tax_line_req = self._get_tax_line_req(tax_type, line, line_taxes)
         taxes = tax_line.compute_all(
-            (line.price_unit * (1 - (line.discount or 0.0) / 100.0)),
+            self._get_line_price_subtotal(line),
             line.quantity, line.product_id, line.invoice_id.partner_id)
         if tax_line_req:
             tipo_recargo = tax_line_req['percentage'] * 100
