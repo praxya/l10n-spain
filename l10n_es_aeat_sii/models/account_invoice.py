@@ -311,7 +311,7 @@ class AccountInvoice(models.Model):
                             # else:
                             tipo_no_exenta = 'S1'
                             type_breakdown[
-                                'PrestacionServicios']['º']['NoExenta'][
+                                'PrestacionServicios']['Sujeta']['NoExenta'][
                                     'TipoNoExenta'] = tipo_no_exenta
                         if 'DesgloseIVA' not in taxes_sii[
                             'DesgloseTipoOperacion']['PrestacionServicios'][
