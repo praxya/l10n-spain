@@ -94,7 +94,6 @@
                     <thead>
                         <tr>
                             <td id="detail_invoice_date">Invoice date</td>
-                            <td id="detail_registry">Registry</td>
                             <td id="detail_invoice_number">Invoice number</td>
                             <td id="detail_company">Company</td>
                             <td id="detail_vat">VAT</td>
@@ -108,9 +107,6 @@
                         <tr t-foreach="o.issued" t-as="l">
                             <td id="data_invoice_date">
                              <span t-field="l.invoice_id.date_invoice"/>
-                            </td>
-                            <td id="data_registry">
-                              <span t-field="l.record_number"/>
                             </td>
                             <td id="data_invoice_number">
                               <span t-field="l.invoice_id.number"/>

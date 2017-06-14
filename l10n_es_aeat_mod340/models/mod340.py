@@ -136,6 +136,8 @@ class L10nEsAeatMod340Report(orm.Model):
 class L10nEsAeatMod340Issued(orm.Model):
     _name = 'l10n.es.aeat.mod340.issued'
     _description = 'Invoices invoice'
+    _order = 'invoice_id desc'
+
     _columns = {
         'mod340_id': fields.many2one('l10n.es.aeat.mod340.report', 'Model 340',
                                      ondelete="cascade"),
@@ -164,13 +166,12 @@ class L10nEsAeatMod340Issued(orm.Model):
         'record_number': fields.char(string='Record number', readonly=True)
     }
 
-    _order = 'date_invoice asc, invoice_id asc'
-
 
 class L10nEsAeatMod340Received(orm.Model):
     _name = 'l10n.es.aeat.mod340.received'
     _description = 'Invoices Received'
     _inherit = 'l10n.es.aeat.mod340.issued'
+    _order = 'invoice_id desc'
     _columns = {
         'supplier_invoice_number': fields.char(
             'Supplier invoice number', size=128),

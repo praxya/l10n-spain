@@ -93,9 +93,9 @@
                 <table class="table table-condensed" id="detail_table">
                     <thead>
                         <tr>
+                            <td id="detail_odoo_invoice">Odoo Invoice</td>
                             <td id="detail_invoice_date">Invoice date</td>
-                            <td id="detail_registry">Registry</td>
-                            <td id="detail_invoice_number">Invoice number</td>
+                            <td id="detail_invoice_number">Customer Invoice</td>
                             <td id="detail_company">Company</td>
                             <td id="detail_vat">VAT</td>
                             <td id="detail_base">Base</td>
@@ -105,11 +105,11 @@
                     </thead>
                     <tbody>
                         <tr t-foreach="o.received" t-as="l">
+                            <td id="data_odoo_invoice">
+                              <span t-field="l.invoice_id.number"/>
+                            </td>
                             <td id="data_invoice_date">
                              <span t-esc="formatLang(l.invoice_id.date_invoice,date=True)"/>
-                            </td>
-                            <td id="data_registry">
-                              <span t-field="l.record_number"/>
                             </td>
                             <td id="data_invoice_number">
                               <span t-esc="l.invoice_id.reference or l.invoice_id.number or ''"/>
