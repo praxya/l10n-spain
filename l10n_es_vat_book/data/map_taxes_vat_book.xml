@@ -41,6 +41,8 @@
           (4, ref('l10n_es.account_tax_code_template_EIDBYS')),
           (4, ref('l10n_es.account_tax_code_template_MBYCRBI')),
           (4, ref('l10n_es.account_tax_code_template_AIBCBI21')),
+          (4, ref('l10n_es.account_tax_code_template_AISCBI21')),
+          (4, ref('l10n_es.account_tax_code_template_AIBBI')),
           ]"/>
     </record>
 
